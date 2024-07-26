@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>redis原理</title>
+      <link href="/2024/07/23/redis%E5%8E%9F%E7%90%86/"/>
+      <url>/2024/07/23/redis%E5%8E%9F%E7%90%86/</url>
+      
+        <content type="html"><![CDATA[<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><h3 id="SDS"><a href="#SDS" class="headerlink" title="SDS"></a>SDS</h3><h4 id="出现的由来"><a href="#出现的由来" class="headerlink" title="出现的由来"></a>出现的由来</h4><p>我们知道redis是使用c语言来编写的，但是redis并没有直接使用c语言中的字符串，因为c语言的字符串存在很多的问题：</p><ul><li>获取字符串的长度需要通过运算</li><li>非二进制安全（以’\0’来结束标识）</li><li>不可修改</li></ul><h4 id="数据结构源码"><a href="#数据结构源码" class="headerlink" title="数据结构源码"></a>数据结构源码</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct sdshdr8 &#123;</span><br><span class="line">    uint8_t len;    //字符串长度</span><br><span class="line">    uint8_t alloc;  //字符串空间大小</span><br><span class="line">    unsigned char flags; //表示sds的类型（8位）</span><br><span class="line">    char buf[];  //用于存储字符串数据</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h3 id="IntSet"><a href="#IntSet" class="headerlink" title="IntSet"></a>IntSet</h3><h3 id="Dick"><a href="#Dick" class="headerlink" title="Dick"></a>Dick</h3><h3 id="ZipList"><a href="#ZipList" class="headerlink" title="ZipList"></a>ZipList</h3><h3 id="QuickList"><a href="#QuickList" class="headerlink" title="QuickList"></a>QuickList</h3><h3 id="SkipList"><a href="#SkipList" class="headerlink" title="SkipList"></a>SkipList</h3><h2 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h2><h2 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h2><h2 id="内存策略"><a href="#内存策略" class="headerlink" title="内存策略"></a>内存策略</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> redis </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 源码 </tag>
+            
+            <tag> redis </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>使用游标分页优化深分页</title>
+      <link href="/2024/07/23/%E4%BD%BF%E7%94%A8%E6%B8%B8%E6%A0%87%E5%88%86%E9%A1%B5%E4%BC%98%E5%8C%96%E6%B7%B1%E5%88%86%E9%A1%B5/"/>
+      <url>/2024/07/23/%E4%BD%BF%E7%94%A8%E6%B8%B8%E6%A0%87%E5%88%86%E9%A1%B5%E4%BC%98%E5%8C%96%E6%B7%B1%E5%88%86%E9%A1%B5/</url>
+      
+        <content type="html"><![CDATA[<h3 id="业务复现"><a href="#业务复现" class="headerlink" title="业务复现"></a>业务复现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">QueryWrapper&lt;Post&gt; postQueryWrapper = new QueryWrapper&lt;&gt;();</span><br><span class="line">postQueryWrapper.eq(&quot;detection_status&quot;,DETECTION_SUCCESS)</span><br><span class="line">        .eq(&quot;has_delete&quot;,0)</span><br><span class="line">        .eq(!Strings.isBlank(tagId),&quot;tag_id&quot;,tagId)//tagId 不为空  更具tagId 查询</span><br><span class="line">        .orderByDesc(strategyMap.get(order));</span><br></pre></td></tr></table></figure><blockquote><p>在进行分页查询的时候，此时数据库中的数据是无序的，假设数据库中有三个数据1，3，5 </p><p>第一次查询的时候可能是 1，3，5 的顺序，此时在第一页取俩条数据是1和3</p><p>第二次查询的时候可能是 1，5，3 的顺序，此时在第二页取俩条数据是3</p><p>此时导致俩次查询到同一条数据2</p></blockquote><h3 id="第一次问题的解决办法"><a href="#第一次问题的解决办法" class="headerlink" title="第一次问题的解决办法"></a>第一次问题的解决办法</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">QueryWrapper&lt;Post&gt; postQueryWrapper = new QueryWrapper&lt;&gt;();</span><br><span class="line">postQueryWrapper.eq(&quot;detection_status&quot;,DETECTION_SUCCESS)</span><br><span class="line">        .eq(&quot;has_delete&quot;,0)</span><br><span class="line">        .eq(!Strings.isBlank(tagId),&quot;tag_id&quot;,tagId)//tagId 不为空  更具tagId 查询</span><br><span class="line">        .orderByDesc(strategyMap.get(order))</span><br><span class="line">        .orderByDesc(&quot;post_id&quot;);</span><br></pre></td></tr></table></figure><blockquote><p>既然查询的数据是无序的，那我们就让他进行一个排序的操作，那当然不会有重复数据的问题啦qwq</p><p>其实会有新的问题！</p><p>以1，3，5 举例</p><p>我们第一次查询第一页的俩条数据 1，3</p><p>此时插入一条数据 2，数据库中的数据为 1，2，3，5</p><p>我们在第二页查询俩条数据，返回的数据为3，5</p><p>也就是第一次查询的数据3再次被查到了。</p></blockquote><h3 id="第二次解决方法（游标查找）"><a href="#第二次解决方法（游标查找）" class="headerlink" title="第二次解决方法（游标查找）"></a>第二次解决方法（游标查找）</h3><blockquote><p>我们在查询数据的时候，让前端返回一个上一次查询的最大值，以上一个例子举例，第二次查询的时候我们让前端返回第一次查询的最大值，也就是3，那么我们第二次查询的时候就查找比3大的俩条数据就行啦~~</p><p>需要注意的是，当我们使用游标分页的方法时，无法直接获取到指定页数，而是必须从前往后逐页遍历。这与 ES 的 scroll 是类似的。</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> mysql优化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> mysql </tag>
+            
+            <tag> 优化 </tag>
+            
+            <tag> 分页 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
