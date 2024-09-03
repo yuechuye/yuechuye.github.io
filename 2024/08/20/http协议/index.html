@@ -1,0 +1,630 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>http协议 | Yuechu`blog</title><meta name="author" content="Yuechu"><meta name="copyright" content="Yuechu"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="计算机网络学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="http协议">
+<meta property="og:url" content="http://example.com/2024/08/20/http%E5%8D%8F%E8%AE%AE/index.html">
+<meta property="og:site_name" content="Yuechu&#96;blog">
+<meta property="og:description" content="计算机网络学习">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://img.hongyoubizhi.com/picture/pages/regular/2021/07/24/09/57/77888016_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000">
+<meta property="article:published_time" content="2024-08-20T14:36:37.000Z">
+<meta property="article:modified_time" content="2024-08-24T02:51:43.040Z">
+<meta property="article:author" content="Yuechu">
+<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="http">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img.hongyoubizhi.com/picture/pages/regular/2021/07/24/09/57/77888016_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000"><link rel="shortcut icon" href="https://iconfont.alicdn.com/p/illus/preview_image/pMhdd5wW6xfB/665b1545-9182-463a-b890-5856cb58aaad.png"><link rel="canonical" href="http://example.com/2024/08/20/http%E5%8D%8F%E8%AE%AE/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'http协议',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-08-24 10:51:43'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://img.hongyoubizhi.com/picture/pages/regular/2023/10/25/11/120651659_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><hr class="custom-hr"/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://img.hongyoubizhi.com/picture/pages/regular/2021/07/24/09/57/77888016_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000')"><nav id="nav"><span id="blog-info"><a href="/" title="Yuechu`blog"><span class="site-name">Yuechu`blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">http协议</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-08-20T14:36:37.000Z" title="发表于 2024-08-20 22:36:37">2024-08-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-08-24T02:51:43.040Z" title="更新于 2024-08-24 10:51:43">2024-08-24</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">9.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>28分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="http协议"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="GET-与-POST"><a href="#GET-与-POST" class="headerlink" title="GET 与 POST"></a>GET 与 POST</h3><h4 id="get-和-post-有什么区别GET-和-POST-有什么区别？"><a href="#get-和-post-有什么区别GET-和-POST-有什么区别？" class="headerlink" title="get-和-post-有什么区别GET 和 POST 有什么区别？"></a>get-和-post-有什么区别GET 和 POST 有什么区别？</h4><blockquote>
+<p>根据 RFC 规范，<strong>GET</strong> <strong>的语义是从服务器获取指定的资源</strong>，这个资源可以是静态的⽂本、⻚⾯、图⽚视频</p>
+<p>等。GET 请求的参数位置⼀般是写在 URL 中，URL 规定只能⽀持 ASCII，所以 GET 请求的参数只允许</p>
+<p>ASCII 字符 ，⽽且浏览器会对 URL 的⻓度有限制（HTTP协议本身对 URL⻓度并没有做任何规定）。</p>
+<p>根据 RFC 规范，<strong>POST 的语义是发送数据并对指定的资源做出处理</strong>，具体的处理⽅式视资源类型⽽不同。</p>
+<p>POST 请求携带数据的位置⼀般是写在报⽂ body 中，body 中的数据可以是任意格式的数据，</p>
+<p>只要客户端与服务端协商好即可，⽽且浏览器不会对 body ⼤⼩做限制。</p>
+</blockquote>
+<h4 id="GET-和-POST-⽅法都是安全和幂等的吗？"><a href="#GET-和-POST-⽅法都是安全和幂等的吗？" class="headerlink" title="GET 和 POST ⽅法都是安全和幂等的吗？"></a><strong>GET</strong> <strong>和</strong> <strong>POST</strong> ⽅法都是安全和幂等的吗？</h4><p><strong>先说明下安全和幂等的概念：</strong></p>
+<blockquote>
+<p>在 HTTP 协议⾥，所谓的「安全」是指请求⽅法不会「破坏」服务器上的资源。</p>
+<p>所谓的「幂等」，意思是多次执⾏相同的操作，结果都是「相同」的。</p>
+<p>如果从 RFC 规范定义的语义来看：<strong>GET</strong> <strong>⽅法就是安全且幂等的</strong>，因为它是「只读」操作，⽆论操作多少次，服务器上的数据都是安全</p>
+<p>的，且每次的结果都是相同的。所以，<strong>可以对</strong> <strong>GET</strong> <strong>请求的数据做缓存，这个缓存可以做到浏览器本</strong>身上（彻底避免浏览器发请求），也可以做到代理上（如nginx），⽽且在浏览器中 <strong>GET</strong> <strong>请求可以保存为书签</strong>。</p>
+<p><strong>POST</strong> 因为是「新增或提交数据」的操作，会修改服务器上的资源，所以是<strong>不安全</strong>的，且多次提交数</p>
+<p>据就会创建多个资源，所以<strong>不是幂等</strong>的。所以，<strong>浏览器⼀般不会缓存</strong> <strong>POST</strong> <strong>请求，也不能把</strong> <strong>POST请求保存为书签</strong>。</p>
+<p><strong>但是实际过程中，</strong>开发者不⼀定会按照 RFC 规范定义的语义来实现 GET 和 POST ⽅法。⽐如：</p>
+<p>可以⽤ GET ⽅法实现新增或删除数据的请求，这样实现的 GET ⽅法⾃然就不是安全和幂等。</p>
+<p>可以⽤ POST ⽅法实现查询数据的请求，这样实现的 POST ⽅法⾃然就是安全和幂等。</p>
+</blockquote>
+<h4 id="HTTP-缓存技术"><a href="#HTTP-缓存技术" class="headerlink" title="HTTP 缓存技术"></a>HTTP 缓存技术</h4><blockquote>
+<p>对于⼀些具有重复性的HTTP请求，⽐如每次请求得到的数据都⼀样的，我们可以把这对「请求-响应」的数据都<strong>缓存在本地</strong>，那么下次就直接读取本地的数据，不必在通过⽹络获取服务器的响应了，这样的话HTTP&#x2F;1.1 的性能肯定⾁眼可⻅的提升。</p>
+<p>所以，避免发送 HTTP 请求的⽅法就是通过<strong>缓存技术</strong>，HTTP 设计者早在之前就考虑到了这点，因此 HTTP协议的头部有不少是针对缓存的字段。</p>
+<p>HTTP 缓存有两种实现⽅式，分别是<strong>强制缓存和协商缓存</strong>。</p>
+</blockquote>
+<h4 id="什么是强制缓存？"><a href="#什么是强制缓存？" class="headerlink" title="什么是强制缓存？"></a><strong>什么是强制缓存？</strong></h4><p>强制缓存指的是只要浏览器判断缓存没有过期，则直接使⽤浏览器的本地缓存，决定是否使⽤缓存的主动性在于浏览器这边。</p>
+<p>如下图中，返回的是 200 状态码，但在 size 项中标识的是 from disk cache，就是使⽤了强制缓存。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211526422.png" alt="img"></p>
+<p>强缓存是利⽤下⾯这两个 HTTP 响应头部（Response Header）字段实现的，它们都⽤来表示资源在客户端缓存的有效期：</p>
+<ul>
+<li>Cache-Control ， 是⼀个相对时间；</li>
+<li>Expires ，是⼀个绝对时间；</li>
+</ul>
+<blockquote>
+<p>在响应头中 Expires 字段的意思是，当前返回数据的缓存到期时间戳。当浏览器在进行请求的时候，会那浏览器本地的时候和这个时间做对比，判断资源是否过期。</p>
+<p>但是上述存在一个问题就是，<strong>如果我手动改变了电脑的时间，那么就会出现问题，这也是 HTTP1.0 中存在的问题。</strong></p>
+<p>Expires 指缓存过期的时间，超过了这个时间点就代表资源过期。有一个问题是由于使用具体时间，如果时间表示出错或者没有转换到正确的时区都可能造成缓存生命周期出错，并且 Expires 是 HTTP&#x2F;1.0 的标准，现在更倾向于用 HTTP&#x2F;1.1 中定义的 Cache-Control，两个同时存在时也是 Cache-Control 的优先级更高。<br> 为了解决这个问题，在 HTTP1.1 中增加了 Cache-Control 这个字段。</p>
+<p>服务器和客户端说，这个资源缓存只可以存在 7200 秒，在这个时间段之内，你就可以在缓存获取资源。</p>
+</blockquote>
+<p>如果 HTTP 响应头部同时有 Cache-Control 和 Expires 字段的话，<strong>Cache-Control</strong> <strong>的优先级⾼于</strong> <strong>Expires</strong>。</p>
+<p>Cache-control 选项更多⼀些，设置更加精细，所以建议使⽤ Cache-Control 来实现强缓存。具体的实现</p>
+<p>流程如下：</p>
+<p>当浏览器第⼀次请求访问服务器资源时，服务器会在返回这个资源的同时，在 Response 头部加上Cache-Control，Cache-Control 中设置了过期时间⼤⼩；</p>
+<p>浏览器再次请求访问服务器中的该资源时，会先<strong>通过请求资源的时间与</strong> <strong>Cache-Control</strong> <strong>中设置的过</strong></p>
+<p><strong>期时间⼤⼩，来计算出该资源是否过期</strong>，如果没有，则使⽤该缓存，否则重新请求服务器；</p>
+<p>服务器再次收到请求后，会再次更新 Response 头部的 Cache-Control。</p>
+<h4 id="什么是协商缓存？"><a href="#什么是协商缓存？" class="headerlink" title="什么是协商缓存？"></a><strong>什么是协商缓存？</strong></h4><p>当我们在浏览器使⽤开发者⼯具的时候，你可能会看到过某些请求的响应码是 304 ，这个是告诉浏览器</p>
+<p>可以使⽤本地缓存的资源，通常这种通过服务端告知客户端是否可以使⽤缓存的⽅式被称为协商缓存。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211528197.png" alt="img"></p>
+<p>上图就是⼀个协商缓存的过程，所以<strong>协商缓存就是与服务端协商之后，通过协商结果来判断是否使⽤本地缓存</strong>。</p>
+<p>协商缓存可以基于两种头部来实现。</p>
+<p>第⼀种：请求头部中的 If-Modified-Since 字段与响应头部中的 Last-Modified 字段实现，这两个字段</p>
+<p>的意思是：</p>
+<ul>
+<li>响应头部中的 Last-Modified ：标示这个响应资源的最后修改时间；</li>
+<li>请求头部中的 If-Modified-Since ：当资源过期了，发现响应头中具有 Last-Modified 声明，则再次发起请求的时候带上 Last-Modified 的时间，服务器收到请求后发现有 If-Modified-Since 则与被请求资源的最后修改时间进⾏对⽐（Last-Modified），如果最后修改时间较新（⼤），说明资源⼜被改过，则返回最新资源，HTTP 200 OK；如果最后修改时间较旧（⼩），说明资源⽆新修改，响应HTTP 304 ⾛缓存。</li>
+</ul>
+<p>第⼆种：请求头部中的 If-None-Match 字段与响应头部中的 ETag 字段，这两个字段的意思是：</p>
+<ul>
+<li>响应头部中 Etag ：唯⼀标识响应资源；</li>
+<li>请求头部中的 If-None-Match ：当资源过期时，浏览器发现响应头⾥有 Etag，则再次向服务器发起请求时，会将请求头 If-None-Match 值设置为 Etag 的值。服务器收到请求后进⾏⽐对，如果资源没有变化返回 304，如果资源变化了返回 200。</li>
+</ul>
+<p>第⼀种实现⽅式是基于时间实现的，第⼆种实现⽅式是基于⼀个唯⼀标识实现的，相对来说后者可以更加</p>
+<p>准确地判断⽂件内容是否被修改，避免由于时间篡改导致的不可靠问题。</p>
+<p>如果在第⼀次请求资源的时候，服务端返回的 HTTP 响应头部同时有 Etag 和 Last-Modified 字段，那么客</p>
+<p>户端再下⼀次请求的时候，如果带上了 ETag 和 Last-Modified 字段信息给服务端，<strong>这时</strong> <strong>Etag</strong> <strong>的优先级更</strong></p>
+<p><strong>⾼</strong>，也就是服务端先会判断 Etag 是否变化了，如果 Etag 有变化就不⽤在判断 Last-Modified 了，如果</p>
+<p>Etag 没有变化，然后再看 Last-Modified。</p>
+<p><strong>为什么</strong> <strong>ETag</strong> <strong>的优先级更⾼？</strong>这是因为 ETag 主要能解决 Last-Modified ⼏个⽐较难以解决的问题：</p>
+<blockquote>
+<p>1、在没有修改⽂件内容情况下⽂件的最后修改时间可能也会改变，这会导致客户端认为这⽂件被改动</p>
+<p>了，从⽽重新请求；</p>
+<p>2、可能有些文件是在秒级以内修改的，If-Modified-Since 能检查到的粒度是秒级的，使用 Etag就能够</p>
+<p>  保证这种需求下客户端在 1 秒内能刷新多次；</p>
+<p>3、有些服务器不能精确获取文件的最后修改时间。</p>
+</blockquote>
+<p><strong>注意， 协商缓存这两个字段都需要配合强制缓存中 Cache-Control 字段来使用，只有在未能命中强制缓存</strong></p>
+<p><strong>的时候，才能发起带有协商缓存字段的请求。</strong></p>
+<p>下图是强制缓存和协商缓存的工作流程：</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211547591.png" alt="img"></p>
+<p><strong>当使用 ETag 字段实现的协商缓存的过程：</strong></p>
+<blockquote>
+<p>当浏览器第一次请求访问服务器资源时，服务器会在返回这个资源的同时，在 Response 头部加上</p>
+<p>ETag 唯一标识，这个唯一标识的值是根据当前请求的资源生成的；</p>
+<p>当浏览器再次请求访问服务器中的该资源时，首先会先检查强制缓存是否过期：</p>
+<p>​	如果没有过期，则直接使用本地缓存；</p>
+<p>​	如果缓存过期了，会在 Request 头部加上 If-None-Match 字段，该字段的值就是 ETag 唯一标</p>
+<p>​	识；</p>
+<p>服务器再次收到请求后， 会根据请求中的 If-None-Match 值与当前请求的资源生成的唯一标识进行</p>
+<p>比较 ：</p>
+<p>​	如果值相等，则返回 304 Not Modified，不会返回资源 ；</p>
+<p>​	如果不相等，则返回 200 状态码和返回资源，并在 Response 头部加上新的 ETag 唯一标识；</p>
+<p>如果浏览器收到 304 的请求响应状态码，则会从本地缓存中加载资源，否则更新资源。</p>
+</blockquote>
+<h3 id="HTTP各个版本"><a href="#HTTP各个版本" class="headerlink" title="HTTP各个版本"></a>HTTP各个版本</h3><h4 id="HTTP1-0"><a href="#HTTP1-0" class="headerlink" title="HTTP1.0"></a>HTTP1.0</h4><p>HTTP&#x2F;1.0是无状态、无连接的应用层协议。</p>
+<p><strong>无连接</strong><br>  无连接：每次请求都要建立连接，需要使用 keep-alive 参数建立长连接、HTTP1.1默认长连接keep-alive<br>  无法复用连接，每次发送请求都要进行TCP连接，TCP的连接释放都比较费事，会导致网络利用率低</p>
+<p><strong>队头阻塞</strong><br>  队头阻塞(head of line blocking)，由于HTTP1.0规定下一个请求必须在前一个请求响应到达之前才能发送，假设前一个请求响应一直不到达，那么下一个请求就不发送，后面的请求就阻塞了。</p>
+<h4 id="HTTP1-1"><a href="#HTTP1-1" class="headerlink" title="HTTP1.1"></a>HTTP1.1</h4><blockquote>
+<p>HTTP 1.1<strong>支持长连接</strong>Persistent Connection，并且默认使用，在同一个TCP的连接中可以传送多个HTTP请求和响应，多个请求和响应可以重叠，多个请求和响应可以同时进行，更加多的请求头和响应头</p>
+<p>HTTP 1.1的持续连接，也需要增加新的请求头来帮助实现，例如，Connection请求头的值为Keep-Alive时，客户端通知服务器返回本次请求结果后保持连接；Connection请求头的值为Close时，客户端通知服务器返回本次请求结果后关闭连接。</p>
+</blockquote>
+<p><strong>管道网络传输</strong></p>
+<p>HTTP&#x2F;1.1 采用了长连接的方式，这使得管道网络传输成为了可能。</p>
+<p>即可在同一个 TCP 连接里面，客户端可以发起多个请求，只要第一个请求发出去了，不必等其回来，就可以发第二个请求出去，可以<strong>减少整体的响应时间。</strong></p>
+<p>举例来说，客户端需要请求两个资源。以前的做法是，在同一个TCP连接里面，先发送 A 请求，然后等待服务器做出回应，收到后再发出 B 请求，管道机制则是允许浏览器同时发出 A 请求和 B 请求。</p>
+<p>但是服务器还是按照<strong>顺序</strong>，先回应 A 请求，完成后再回应 B 请求，要是 前面的回应特别慢，后面就会有许多请求排队等着。</p>
+<p>所以，<strong>HTTP&#x2F;1.1 管道解决了请求的队头阻塞，但是没有解决响应的队头阻塞</strong>。</p>
+<blockquote>
+<p> 注意!!!</p>
+<p>实际上 HTTP&#x2F;1.1 管道化技术不是默认开启，而且浏览器基本都没有支持。</p>
+</blockquote>
+<h4 id="HTTP2-0（不详细）"><a href="#HTTP2-0（不详细）" class="headerlink" title="HTTP2.0（不详细）"></a>HTTP2.0（不详细）</h4><p><strong>HTTP2.0和HTTP1.X相比的新特性</strong></p>
+<ul>
+<li>新的二进制格式，<code>HTTP1.x</code>的解析是基于文本</li>
+<li>多路复用，即连接共享，即每一个request都是是用作连接共享机制的，一个request对应一个id，这样一个连接上可以有多个request，每个连接的request可以随机的混杂在一起，接收方可以根据request的 id将request再归属到各自不同的服务端请求里面</li>
+<li>header压缩，<code>HTTP1.x</code>的header带有大量信息，而且每次都要重复发送，HTTP2.0使用encoder来减少需要传输的header大小，通讯双方各自cache一份header fields表，既避免了重复header的传输，又减小了需要传输的大小</li>
+<li>服务端推送</li>
+</ul>
+<p>HTTP&#x2F;2 还在一定程度上改善了传统的请求 - 应答工作模式，服务不再是被动地响应，也可以<strong>主动</strong>向客户端发送消息。</p>
+<p>举例来说，在浏览器刚请求 HTML 的时候，就提前把可能会用到的 JS、CSS 文件等静态资源主动发给客户端，<strong>减少延时的等待</strong>，也就是服务器推送。</p>
+<p><strong>数据流</strong></p>
+<p>HTTP&#x2F;2 的数据包不是按顺序发送的，同一个连接里面连续的数据包，可能属于不同的回应。</p>
+<p>因此，必须要对数据包做标记，指出它属于哪个回应。</p>
+<p>每个请求或回应的所有数据包，称为一个数据流（Stream）。</p>
+<p>每个数据流都标记着一个独一无二的编号，其中规定客户端发出的数据流编号为奇数， 服务器发出的数据流编号为偶数</p>
+<p>客户端还可以<strong>指定数据流的优先级</strong>。优先级高的请求，服务器就先响应该请求。</p>
+<p><strong>HTTP2.0的多路复用和HTTP1.X中的长连接复用有什么区别</strong></p>
+<ul>
+<li>HTTP&#x2F;1.1的Pipeling为若干个请求排队串行化单线程处理，后面的请求等待前面请求的返回才能获得执行机会，一旦有某请求超时等，后续请求只能被阻塞，毫无办法；</li>
+<li>HTTP2.0多个请求可同时在一个连接上并行执行，某个请求任务耗时严重，不会影响到其它连接的正常执行</li>
+</ul>
+<h4 id="HTTP3-0（不详细）"><a href="#HTTP3-0（不详细）" class="headerlink" title="HTTP3.0（不详细）"></a>HTTP3.0（不详细）</h4><p><strong>使用UDP协议</strong></p>
+<p>HTTP&#x2F;2 主要的问题在于：多个 HTTP 请求在复用一个 TCP 连接，下层的 TCP 协议是不知道有多少个 HTTP 请求的。</p>
+<p>所以一旦发生了丢包现象，就会触发 TCP 的重传机制，这样在一个 TCP 连接中的<strong>所有的 HTTP 请求都必须等待这个丢了的包被重传回来</strong>。</p>
+<ul>
+<li>HTTP&#x2F;1.1 中的管道传输中如果有一个请求阻塞了，那么队列后请求也统统被阻塞住了</li>
+<li>HTTP&#x2F;2 多请求复用一个TCP连接，一旦发生丢包，就会阻塞住所有的 HTTP 请求。</li>
+</ul>
+<p>这都是基于 TCP 传输层的问题，所以 <strong>HTTP&#x2F;3 把 HTTP 下层的 TCP 协议改成了 UDP！</strong></p>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><h5 id="HTTP-1-1-相比-HTTP-1-0-提高了什么性能？"><a href="#HTTP-1-1-相比-HTTP-1-0-提高了什么性能？" class="headerlink" title="HTTP&#x2F;1.1 相比 HTTP&#x2F;1.0 提高了什么性能？"></a>HTTP&#x2F;1.1 相比 HTTP&#x2F;1.0 提高了什么性能？</h5><ul>
+<li><p>使用⻓连接的方式改善了 HTTP&#x2F;1.0 短连接造成的性能开销。</p>
+</li>
+<li><p>支持管道（pipeline）网络传输，只要第一个请求发出去了，不必等其回来，就可以发第二个请求出</p>
+<p>去，可以减少整体的响应时间。</p>
+</li>
+</ul>
+<p><strong>但 HTTP&#x2F;1.1 还是有性能瓶颈：</strong></p>
+<ul>
+<li><p>请求 &#x2F; 响应头部（Header）未经压缩就发送，首部信息越多延迟越大。只能压缩 Body 的部分；</p>
+</li>
+<li><p>发送冗⻓的首部。每次互相发送相同的首部造成的浪费较多；</p>
+</li>
+<li><p>服务器是按请求的顺序响应的，如果服务器响应慢，会招致客户端一直请求不到数据，也就是队头阻</p>
+<p>塞；</p>
+</li>
+<li><p>没有请求优先级控制；</p>
+</li>
+<li><p>请求只能从客户端开始，服务器只能被动响应。</p>
+</li>
+</ul>
+<h5 id="HTTP-2-做了什么优化？"><a href="#HTTP-2-做了什么优化？" class="headerlink" title="HTTP&#x2F;2 做了什么优化？"></a>HTTP&#x2F;2 做了什么优化？</h5><p>HTTP&#x2F;2 协议是基于 HTTPS 的，所以 HTTP&#x2F;2 的安全性也是有保障的。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211640633.jpeg" alt="HTT/1 ~ HTTP/2"></p>
+<p>那 HTTP&#x2F;2 相比 HTTP&#x2F;1.1 性能上的改进：</p>
+<ul>
+<li><p>头部压缩</p>
+</li>
+<li><p>二进制格式</p>
+</li>
+<li><p>并发传输</p>
+</li>
+<li><p>服务器主动推送资源</p>
+</li>
+</ul>
+<p><strong>1. 头部压缩</strong></p>
+<p>HTTP&#x2F;2 会 <strong>压缩头</strong> （Header）如果你同时发出多个请求，他们的头是一样的或是相似的，那么，协议会帮<br>你 <strong>消除重复的部分</strong> 。</p>
+<p>这就是所谓的 HPACK 算法：在客户端和服务器同时维护一张头信息表，所有字段都会存入这个表，生</p>
+<p>成一个索引号，以后就不发送同样字段了，只发送索引号，这样就 提高速度 了。</p>
+<p><strong>2. 二进制格式</strong></p>
+<p>HTTP&#x2F;2 不再像 HTTP&#x2F;1.1 里的纯文本形式的报文，而是全面采用了 二进制格式 ，头信息和数据体都是二进</p>
+<p>制，并且统称为帧（frame）： <strong>头信息帧（Headers Frame）和数据帧（Data Frame）</strong> 。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211728778.png" alt="HTTP/1 与 HTTP/2 "></p>
+<p>这样虽然对人不友好，但是对计算机非常友好，因为计算机只懂二进制，那么收到报文后，无需再将明文</p>
+<p>的报文转成二进制，而是直接解析二进制报文，这 增加了数据传输的效率 。</p>
+<p>比如状态码 200 ，在 HTTP&#x2F;1.1 是用 ‘2’’0’’0’ 三个字符来表示（二进制：00110010 00110000</p>
+<p>00110000 ），共用了 3 个字节，如下图</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211729146.png" alt="img"></p>
+<p>在 HTTP&#x2F;2 对于状态码 200 的二进制编码是 10001000 ，只用了 1 字节就能表示，相比于 HTTP&#x2F;1.1 节省</p>
+<p>了 2 个字节，如下图：</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211729688.png" alt="img"></p>
+<p>Header: :status: 200 OK 的编码内容为：1000 1000，那么表达的含义是什么呢？</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211730573.png" alt="img"></p>
+<ol>
+<li>最前面的 1 标识该 Header 是静态表中已经存在的 KV。</li>
+<li>在静态表里，“:status: 200 ok” 静态表编码是 8 ，二进制即是 1000 。</li>
+</ol>
+<p>因此，整体加起来就是 1000 1000。</p>
+<ol start="3">
+<li><strong>并发传输</strong></li>
+</ol>
+<p>我们都知道 HTTP&#x2F;1.1 的实现是基于请求-响应模型的。同一个连接中，HTTP 完成一个事务（请求与响</p>
+<p>应），才能处理下一个事务，也就是说在发出请求等待响应的过程中，是没办法做其他事情的，如果响应</p>
+<p>迟迟不来，那么后续的请求是无法发送的，也造成了 <strong>队头阻塞</strong> 的问题。</p>
+<p>而 HTTP&#x2F;2 就很牛逼了，引出了 Stream 概念，多个 Stream 复用在一条 TCP 连接。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211731635.png" alt="img"></p>
+<p>从上图可以看到， 1 个 TCP 连接包含多个 Stream，Stream 里可以包含 1 个或多个 Message，Message<br>对应 HTTP&#x2F;1 中的请求或响应，由 HTTP 头部和包体构成。Message 里包含一条或者多个 Frame，Frame<br>是 HTTP&#x2F;2 最小单位，以二进制压缩格式存放 HTTP&#x2F;1 中的内容（头部和包体）。</p>
+<p>针对不同的 HTTP 请求用独一无二的 Stream ID 来区分，接收端可以通过 Stream ID 有序组装成 HTTP</p>
+<p>消息，不同 Stream 的帧是可以乱序发送的，因此可以并发不同的 Stream ，也就是 HTTP&#x2F;2 可以并行交<br>错地发送请求和响应。</p>
+<p>比如下图，服务端 <strong>并行交错地</strong> 发送了两个响应： Stream 1 和 Stream 3，这两个 Stream 都是跑在一个<br>TCP 连接上，客户端收到后，会根据相同的 Stream ID 有序组装成 HTTP 消息。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211732172.jpeg" alt="img"></p>
+<p><strong>4 、服务器推送</strong></p>
+<p>HTTP&#x2F;2 还在一定程度上改善了传统的「请求 - 应答」工作模式，服务端不再是被动地响应，可以 <strong>主动</strong> 向客</p>
+<p>户端发送消息。</p>
+<p>客户端和服务器 <strong>双方都可以建立 Stream</strong> ， Stream ID 也是有区别的，客户端建立的 Stream 必须是奇数<br>号，而服务器建立的 Stream 必须是偶数号。</p>
+<p>比如下图，Stream 1 是客户端向服务端请求的资源，属于客户端建立的 Stream，所以该 Stream 的 ID 是<br>奇数（数字 1 ）；Stream 2 和 4 都是服务端主动向客户端推送的资源，属于服务端建立的 Stream，所以<br>这两个 Stream 的 ID 是偶数（数字 2 和 4 ）。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211733106.png" alt="img"></p>
+<p>再比如，客户端通过 HTTP&#x2F;1.1 请求从服务器那获取到了 HTML 文件，而 HTML 可能还需要依赖 CSS 来</p>
+<p>渲染⻚面，这时客户端还要再发起获取 CSS 文件的请求，需要两次消息往返，如下图左边部分：</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211733663.png" alt="img"></p>
+<p>如上图右边部分，在 HTTP&#x2F;2 中，客户端在访问 HTML 时，服务器可以直接主动推送 CSS 文件，减少了</p>
+<p>消息传递的次数。</p>
+<p><strong>HTTP&#x2F;2 有什么缺陷？</strong></p>
+<p>HTTP&#x2F;2 通过 Stream 的并发能力，解决了 HTTP&#x2F;1 队头阻塞的问题，看似很完美了，但是 HTTP&#x2F;2 还是存<br>在“队头阻塞”的问题，只不过问题不是在 HTTP 这一层面，而是在 TCP 这一层。</p>
+<p><strong>HTTP&#x2F;2 是基于 TCP 协议来传输数据的，TCP 是字节流协议，TCP 层必须保证收到的字节数据是完整且</strong></p>
+<p><strong>连续的，这样内核才会将缓冲区里的数据返回给 HTTP 应用，那么当「前 1 个字节数据」没有到达时，后</strong></p>
+<p><strong>收到的字节数据只能存放在内核缓冲区里，只有等到这 1 个字节数据到达时，HTTP&#x2F;2 应用层才能从内核</strong></p>
+<p><strong>中拿到数据，这就是 HTTP&#x2F;2 队头阻塞问题。</strong></p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211734575.jpeg" alt="img"></p>
+<p>举个例子，如下图：</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211735157.gif" alt="img"></p>
+<p>图中发送方发送了很多个 packet，每个 packet 都有自己的序号，你可以认为是 TCP 的序列号，其中<br>packet 3 在网络中丢失了，即使 packet 4-6 被接收方收到后，由于内核中的 TCP 数据不是连续的，于是<br>接收方的应用层就无法从内核中读取到，只有等到 packet 3 重传后，接收方的应用层才可以从内核中读取<br>到数据，这就是 HTTP&#x2F;2 的队头阻塞问题，是在 TCP 层面发生的。</p>
+<p>所以，一旦发生了丢包现象，就会触发 TCP 的重传机制，这样在一个 TCP 连接中的 <strong>所有的 HTTP 请求都</strong></p>
+<p><strong>必须等待这个丢了的包被重传回来 。</strong></p>
+<h5 id="HTTP-3-做了哪些优化？"><a href="#HTTP-3-做了哪些优化？" class="headerlink" title="HTTP&#x2F;3 做了哪些优化？"></a>HTTP&#x2F;3 做了哪些优化？</h5><p>前面我们知道了 HTTP&#x2F;1.1 和 HTTP&#x2F;2 都有队头阻塞的问题：</p>
+<ul>
+<li><p>HTTP&#x2F;1.1 中的管道（ pipeline）虽然解决了请求的队头阻塞，但是 <strong>没有解决响应的队头阻塞</strong> ，因为服</p>
+<p>务端需要按顺序响应收到的请求，如果服务端处理某个请求消耗的时间比较⻓，那么只能等响应完这</p>
+<p>个请求后， 才能处理下一个请求，这属于 HTTP 层队头阻塞。</p>
+</li>
+<li><p>HTTP&#x2F;2 虽然通过多个请求复用一个 TCP 连接解决了 HTTP 的队头阻塞 ，但是 <strong>一旦发生丢包，就会</strong></p>
+<p><strong>阻塞住所有的 HTTP 请求</strong> ，这属于 TCP 层队头阻塞。</p>
+</li>
+</ul>
+<p>HTTP&#x2F;2 队头阻塞的问题是因为 TCP，所以 <strong>HTTP&#x2F;3 把 HTTP 下层的 TCP 协议改成了 UDP！</strong></p>
+<p><img src="https://cdn.xiaolincoding.com/gh/xiaolincoder/ImageHost/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/HTTP/27-HTTP3.png" alt="HTTP/1 ~ HTTP/3"></p>
+<p>UDP 发送是不管顺序，也不管丢包的，所以不会出现像 HTTP&#x2F;2 队头阻塞的问题。大家都知道 UDP 是不</p>
+<p>可靠传输的，但基于 UDP 的 <strong>QUIC 协议</strong> 可以实现类似 TCP 的可靠性传输。</p>
+<p>QUIC 有以下 3 个特点。</p>
+<ul>
+<li><p>无队头阻塞</p>
+</li>
+<li><p>更快的连接建立</p>
+</li>
+<li><p>连接迁移</p>
+</li>
+</ul>
+<p><strong>1 、无队头阻塞</strong></p>
+<p>QUIC 协议也有类似 HTTP&#x2F;2 Stream 与多路复用的概念，也是可以在同一条连接上并发传输多个 Stream，<br>Stream 可以认为就是一条 HTTP 请求。</p>
+<p>QUIC 有自己的一套机制可以保证传输的可靠性的。 <strong>当某个流发生丢包时，只会阻塞这个流，其他流不会</strong></p>
+<p><strong>受到影响，因此不存在队头阻塞问题</strong> 。这与 HTTP&#x2F;2 不同，HTTP&#x2F;2 只要某个流中的数据包丢失了，其他流</p>
+<p>也会因此受影响。</p>
+<p>所以，QUIC 连接上的多个 Stream 之间并没有依赖，都是独立的，某个流发生丢包了，只会影响该流，其<br>他流不受影响。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211738742.jpeg" alt="img"></p>
+<p><strong>2 、更快的连接建立</strong></p>
+<p>对于 HTTP&#x2F;1 和 HTTP&#x2F;2 协议，TCP 和 TLS 是分层的，分别属于内核实现的传输层、openssl 库实现的表<br>示层，因此它们难以合并在一起，需要分批次来握手，先 TCP 握手，再 TLS 握手。</p>
+<p>HTTP&#x2F;3 在传输数据前虽然需要 QUIC 协议握手，但是这个握手过程只需要 1 RTT，握手的目的是为确认双</p>
+<p>方的「连接 ID」，连接迁移就是基于连接 ID 实现的。</p>
+<p>但是 HTTP&#x2F;3 的 QUIC 协议并不是与 TLS 分层，而是 QUIC 内部包含了 TLS，它在自己的帧会携带 TLS</p>
+<p>里的“记录”，再加上 QUIC 使用的是 TLS&#x2F;1.3，因此仅需 1 个 RTT 就可以「同时」完成建立连接与密钥协</p>
+<p>商，如下图：</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211738977.jpeg" alt="TCP HTTPS（TLS/1.3） 和 QUIC HTTPS "></p>
+<p>甚至，在第二次连接的时候，应用数据包可以和 QUIC 握手信息（连接信息 + TLS 信息）一起发送，达到</p>
+<p>0-RTT 的效果。</p>
+<p>如下图右边部分，HTTP&#x2F;3 当会话恢复时，有效负载数据与第一个数据包一起发送，可以做到 0-RTT（下</p>
+<p>图的右下⻆）：</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211738233.png" alt="img"></p>
+<p><strong>3 、连接迁移</strong></p>
+<p>基于 TCP 传输协议的 HTTP 协议，由于是通过四元组（源 IP、源端口、目的 IP、目的端口）确定一条</p>
+<p>TCP 连接。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408211738056.png" alt="TCP 四元组"></p>
+<p>那么 <strong>当移动设备的网络从 4G 切换到 WIFI 时，意味着 IP 地址变化了，那么就必须要断开连接，然后重新</strong></p>
+<p><strong>建立连接</strong> 。而建立连接的过程包含 TCP 三次握手和 TLS 四次握手的时延，以及 TCP 慢启动的减速过程，</p>
+<p>给用户的感觉就是网络突然卡顿了一下，因此连接的迁移成本是很高的。</p>
+<p>而 QUIC 协议没有用四元组的方式来“绑定”连接，而是通过 <strong>连接 ID</strong> 来标记通信的两个端点，客户端和服务</p>
+<p>器可以各自选择一组 ID 来标记自己，因此即使移动设备的网络变化后，导致 IP 地址变化了，只要仍保有</p>
+<p>上下文信息（比如连接 ID、TLS 密钥等），就可以“无缝”地复用原连接，消除重连的成本，没有丝毫卡顿</p>
+<p>感，达到了 <strong>连接迁移</strong> 的功能。</p>
+<p>所以， QUIC 是一个在 UDP 之上的 <strong>伪</strong> TCP + TLS + HTTP&#x2F;2 的多路复用的协议。</p>
+<p>QUIC 是新协议，对于很多网络设备，根本不知道什么是 QUIC，只会当做 UDP，这样会出现新的问题，</p>
+<p>因为有的网络设备是会丢掉 UDP 包的，而 QUIC 是基于 UDP 实现的，那么如果网络设备无法识别这个是</p>
+<p>QUIC 包，那么就会当作 UDP包，然后被丢弃。</p>
+<h3 id="HTTPS"><a href="#HTTPS" class="headerlink" title="HTTPS"></a>HTTPS</h3><p><strong>HTTP与HTTPS的区别</strong></p>
+<ul>
+<li>HTTP 是超文本传输协议，信息是明文传输，存在安全⻛险的问题。HTTPS 则解决 HTTP 不安全的缺</li>
+</ul>
+<p>陷，在 TCP 和 HTTP 网络层之间加入了 SSL&#x2F;TLS 安全协议，使得报文能够加密传输。</p>
+<ul>
+<li>HTTP 连接建立相对简单， TCP 三次握手之后便可进行 HTTP 的报文传输。而 HTTPS 在 TCP 三次</li>
+</ul>
+<p>握手之后，还需进行 SSL&#x2F;TLS 的握手过程，才可进入加密报文传输。</p>
+<ul>
+<li><p>两者的默认端口不一样，HTTP 默认端口号是 80 ，HTTPS 默认端口号是 443 。</p>
+</li>
+<li><p>HTTPS 协议需要向 CA（证书权威机构）申请数字证书，来保证服务器的身份是可信的。</p>
+</li>
+</ul>
+<p><strong>HTTPS 解决了 HTTP 的哪些问题？</strong></p>
+<p>HTTP 由于是明文传输，所以安全上存在以下三个⻛险：</p>
+<blockquote>
+<ul>
+<li><p><strong>窃听⻛险</strong> ，比如通信链路上可以获取通信内容，用户号容易没。</p>
+</li>
+<li><p><strong>篡改⻛险</strong> ，比如强制植入垃圾广告，视觉污染，用户眼容易瞎。</p>
+</li>
+<li><p><strong>冒充⻛险</strong> ，比如冒充淘宝网站，用户钱容易没。</p>
+</li>
+</ul>
+</blockquote>
+<p>HTTP S 在 HTTP 与 TCP 层之间加入了 SSL&#x2F;TLS 协议，可以很好的解决了上述的⻛险：</p>
+<blockquote>
+<ul>
+<li><p><strong>信息加密</strong> ：交互信息无法被窃取，但你的号会因为「自身忘记」账号而没。</p>
+</li>
+<li><p><strong>校验机制</strong> ：无法篡改通信内容，篡改了就不能正常显示，但百度「竞价排名」依然可以搜索垃圾广告。</p>
+</li>
+<li><p><strong>身份证书</strong> ：证明淘宝是真的淘宝网，但你的钱还是会因为「剁手」而没。</p>
+</li>
+</ul>
+</blockquote>
+<p>HTTPS 是如何解决上面的三个风险的？</p>
+<blockquote>
+<ul>
+<li><p><strong>混合加密</strong> 的方式实现信息的 机密性 ，解决了窃听的⻛险。 </p>
+</li>
+<li><p><strong>摘要算法</strong> 的方式来实现 完整性 ，它能够为数据生成独一无二的「指纹」，指纹用于校验数据的完整性，解决了篡改的⻛险。</p>
+</li>
+<li><p>将服务器公钥放入到 <strong>数字证书</strong> 中，解决了冒充的⻛险</p>
+</li>
+</ul>
+</blockquote>
+<p><em><strong>1. 混合加密</strong></em></p>
+<p>通过<strong>混合加密</strong>的方式可以保证信息的<strong>机密性</strong>，解决了窃听的风险。</p>
+<p>HTTPS 采用的是<strong>对称加密</strong>和<strong>非对称加密</strong>结合的「混合加密」方式：</p>
+<blockquote>
+<ul>
+<li><p>在通信建立前采用 非对称加密 的方式交换「会话秘钥」，后续就不再使用非对称加密。</p>
+</li>
+<li><p>在通信过程中全部使用 对称加密 的「会话秘钥」的方式加密明文数据。</p>
+</li>
+</ul>
+</blockquote>
+<p><strong>采用「混合加密」的方式的原因：</strong></p>
+<blockquote>
+<ul>
+<li><p>对称加密 只使用一个密钥，运算速度快，密钥必须保密，无法做到安全的密钥交换。</p>
+</li>
+<li><p>非对称加密 使用两个密钥：公钥和私钥，公钥可以任意分发而私钥保密，解决了密钥交换问题但速度慢。</p>
+</li>
+</ul>
+</blockquote>
+<p><em><strong>2. 摘要算法 + 数字签名</strong></em></p>
+<p>为了保证传输的内容不被篡改，我们需要对内容计算出一个「指纹」，然后同内容一起传输给对方。</p>
+<p>对方收到后，先是对内容也计算出一个「指纹」，然后跟发送方发送的「指纹」做一个比较，如果「指</p>
+<p>纹」相同，说明内容没有被篡改，否则就可以判断出内容被篡改了。</p>
+<p>那么，在计算机里会 用<strong>摘要算法（哈希函数）来计算出内容的哈希值</strong> ，也就是内容的「指纹」，这个 <strong>哈希</strong></p>
+<p><strong>值是唯一的，且无法通过哈希值推导出内容</strong> 。</p>
+<p>通过哈希算法可以确保内容不会被篡改， <strong>但是并不能保证「内容 + 哈希值」不会被中间人替换，因为这里</strong></p>
+<p><strong>缺少对客户端收到的消息是否来源于服务端的证明</strong> 。</p>
+<p>举个例子，你想向老师请假，一般来说是要求由家⻓写一份请假理由并签名，老师才能允许你请假。</p>
+<p>但是你有模仿你爸爸字迹的能力，你用你爸爸的字迹写了一份请假理由然后签上你爸爸的名字，老师一看</p>
+<p>到这个请假条，查看字迹和签名，就误以为是你爸爸写的，就会允许你请假。</p>
+<p>那作为老师，要如何避免这种情况发生呢？现实生活中的，可以通过电话或视频来确认是否是由父母发出</p>
+<p>的请假，但是计算机里可没有这种操作。</p>
+<p>那为了避免这种情况，计算机里会用 <strong>非对称加密算法</strong> 来解决，共有两个密钥：</p>
+<ul>
+<li><p>一个是公钥，这个是可以公开给所有人的；</p>
+</li>
+<li><p>一个是私钥，这个必须由本人管理，不可泄露。</p>
+</li>
+</ul>
+<p>这两个密钥可以 <strong>双向加解密</strong> 的，比如可以用公钥加密内容，然后用私钥解密，也可以用私钥加密内容，公</p>
+<p>钥解密内容。</p>
+<p>流程的不同，意味着目的也不相同：</p>
+<blockquote>
+<ul>
+<li><strong>公钥加密，私钥解密 。</strong>这个目的是为了 <strong>保证内容传输的安全</strong> ，因为被公钥加密的内容，其他人是无法</li>
+</ul>
+<p>解密的，只有持有私钥的人，才能解密出实际的内容；</p>
+<ul>
+<li><strong>私钥加密，公钥解密 。</strong>这个目的是为了 <strong>保证消息不会被冒充</strong> ，因为私钥是不可泄露的，如果公钥能正</li>
+</ul>
+<p>常解密出私钥加密的内容，就能证明这个消息是来源于持有私钥身份的人发送的。</p>
+</blockquote>
+<p>一般我们不会用非对称加密来加密实际的传输内容，因为非对称加密的计算比较耗费性能的。</p>
+<p>所以非对称加密的用途主要在于 <strong>通过「私钥加密，公钥解密」的方式，来确认消息的身份</strong> ，我们常说的 <strong>数</strong></p>
+<p><strong>字签名算法</strong> ，就是用的是这种方式，不过私钥加密内容不是内容本身，而是 <strong>对内容的哈希值加密</strong> 。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408212031140.png" alt="img"></p>
+<p>私钥是由服务端保管，然后服务端会向客户端颁发对应的公钥。如果客户端收到的信息，能被公钥解密，</p>
+<p>就说明该消息是由服务器发送的。</p>
+<p>引入了数字签名算法后，你就无法模仿你爸爸的字迹来请假了，你爸爸手上持有着私钥，你老师持有着公</p>
+<p>钥。</p>
+<p>这样只有用你爸爸手上的私钥才对请假条进行「签名」，老师通过公钥看能不能解出这个「签名」，如果</p>
+<p>能解出并且确认内容的完整性，就能证明是由你爸爸发起的请假条，这样老师才允许你请假，否则老师就</p>
+<p>不认。</p>
+<p><strong>工作原理</strong></p>
+<p>HTTPS 协议会对传输的数据进行加密，而加密过程是使用了非对称加密实现</p>
+<p>HTTPS的整体过程分为证书验证和数据传输阶段，具体的交互过程如下：</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408202243832.png" alt="img"></p>
+<ul>
+<li>Client发起一个HTTPS的请求</li>
+<li>Server把事先配置好的公钥证书返回给客户端。</li>
+<li>Client验证公钥证书：比如是否在有效期内，证书的用途是不是匹配Client请求的站点，是不是在CRL吊销列表里面，它的上一级证书是否有效，这是一个递归的过程，直到验证到根证书（操作系统内置的Root证书或者Client内置的Root证书），如果验证通过则继续，不通过则显示警告信息。</li>
+<li>Client使用伪随机数生成器生成加密所使用的对称密钥，然后用证书的公钥加密这个对称密钥，发给Server。</li>
+<li>Server使用自己的私钥解密这个消息，得到对称密钥。至此，Client和Server双方都持有了相同的对称密钥。</li>
+<li>Server使用对称密钥加密明文内容A，发送给Client。</li>
+<li>Client使用对称密钥解密响应的密文，得到明文内容A。</li>
+<li>Client再次发起HTTPS的请求，使用对称密钥加密请求的明文内容B，然后Server使用对称密钥解密密文，得到明文内容B。</li>
+</ul>
+<h4 id="数字证书"><a href="#数字证书" class="headerlink" title="数字证书"></a>数字证书</h4><p>客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。</p>
+<blockquote>
+<p>这就存在些问题，如何保证公钥不被篡改和信任度？</p>
+</blockquote>
+<p>所以这里就需要借助第三方权威机构 CA （数字证书认证机构），将<strong>服务器公钥放在数字证书</strong>（由数字证书认证机构颁发）中，只要证书是可信的，公钥就是可信的。</p>
+<p>通过数字证书的方式保证服务器公钥的身份，解决冒充的风险。</p>
+<p><img src="https://yuechu-bucket.oss-cn-beijing.aliyuncs.com/undefined202408202243624.png" alt="img"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Yuechu</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/08/20/http%E5%8D%8F%E8%AE%AE/">http://example.com/2024/08/20/http%E5%8D%8F%E8%AE%AE/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Yuechu`blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">计算机网络</a><a class="post-meta__tags" href="/tags/http/">http</a></div><div class="post_share"><div class="social-share" data-image="https://img.hongyoubizhi.com/picture/pages/regular/2021/07/24/09/57/77888016_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2024/08/19/%E9%80%9A%E7%94%A8%E7%9A%84/%E4%B8%80%E4%BA%9B%E5%AE%B9%E6%98%93%E6%90%9E%E6%B7%B7%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9/" title="一些容易搞混的知识点"><img class="cover" src="https://img.hongyoubizhi.com/picture/pages/regular/2021/01/26/15/07/86380024_p0_master1200.jpg?x-oss-process=image/resize,w_450/format,jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">一些容易搞混的知识点</div></div></a></div><div class="next-post pull-right"><a href="/2024/08/20/Tcp%E5%8D%8F%E8%AE%AE/" title="Tcp协议"><img class="cover" src="https://img.hongyoubizhi.com/picture/pages/regular/2023/04/30/15/111363525_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Tcp协议</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/08/20/Tcp%E5%8D%8F%E8%AE%AE/" title="Tcp协议"><img class="cover" src="https://img.hongyoubizhi.com/picture/pages/regular/2023/04/30/15/111363525_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-08-20</div><div class="title">Tcp协议</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://img.hongyoubizhi.com/picture/pages/regular/2023/10/25/11/120651659_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Yuechu</div><div class="author-info__description">Yuechu`blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">33</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">35</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">15</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/yuechuye" target="_blank" title=""><i class="fab fa-github"></i></a><a class="social-icon" href="/3391855334@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET-%E4%B8%8E-POST"><span class="toc-number">1.</span> <span class="toc-text">GET 与 POST</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#get-%E5%92%8C-post-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%ABGET-%E5%92%8C-POST-%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-number">1.1.</span> <span class="toc-text">get-和-post-有什么区别GET 和 POST 有什么区别？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#GET-%E5%92%8C-POST-%E2%BD%85%E6%B3%95%E9%83%BD%E6%98%AF%E5%AE%89%E5%85%A8%E5%92%8C%E5%B9%82%E7%AD%89%E7%9A%84%E5%90%97%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">GET 和 POST ⽅法都是安全和幂等的吗？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP-%E7%BC%93%E5%AD%98%E6%8A%80%E6%9C%AF"><span class="toc-number">1.3.</span> <span class="toc-text">HTTP 缓存技术</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%BC%BA%E5%88%B6%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="toc-number">1.4.</span> <span class="toc-text">什么是强制缓存？</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98%EF%BC%9F"><span class="toc-number">1.5.</span> <span class="toc-text">什么是协商缓存？</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTP%E5%90%84%E4%B8%AA%E7%89%88%E6%9C%AC"><span class="toc-number">2.</span> <span class="toc-text">HTTP各个版本</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP1-0"><span class="toc-number">2.1.</span> <span class="toc-text">HTTP1.0</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP1-1"><span class="toc-number">2.2.</span> <span class="toc-text">HTTP1.1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP2-0%EF%BC%88%E4%B8%8D%E8%AF%A6%E7%BB%86%EF%BC%89"><span class="toc-number">2.3.</span> <span class="toc-text">HTTP2.0（不详细）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HTTP3-0%EF%BC%88%E4%B8%8D%E8%AF%A6%E7%BB%86%EF%BC%89"><span class="toc-number">2.4.</span> <span class="toc-text">HTTP3.0（不详细）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">2.5.</span> <span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#HTTP-1-1-%E7%9B%B8%E6%AF%94-HTTP-1-0-%E6%8F%90%E9%AB%98%E4%BA%86%E4%BB%80%E4%B9%88%E6%80%A7%E8%83%BD%EF%BC%9F"><span class="toc-number">2.5.1.</span> <span class="toc-text">HTTP&#x2F;1.1 相比 HTTP&#x2F;1.0 提高了什么性能？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HTTP-2-%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="toc-number">2.5.2.</span> <span class="toc-text">HTTP&#x2F;2 做了什么优化？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#HTTP-3-%E5%81%9A%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="toc-number">2.5.3.</span> <span class="toc-text">HTTP&#x2F;3 做了哪些优化？</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HTTPS"><span class="toc-number">3.</span> <span class="toc-text">HTTPS</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E8%AF%81%E4%B9%A6"><span class="toc-number">3.1.</span> <span class="toc-text">数字证书</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/08/26/Mysql-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E4%B9%8B-Using-filesort/" title="Mysql 查询优化之 Using filesort"><img src="https://img.hongyoubizhi.com/picture/pages/regular/2023/10/25/13/121578760_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Mysql 查询优化之 Using filesort"/></a><div class="content"><a class="title" href="/2024/08/26/Mysql-%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%96%E4%B9%8B-Using-filesort/" title="Mysql 查询优化之 Using filesort">Mysql 查询优化之 Using filesort</a><time datetime="2024-08-26T02:20:15.000Z" title="发表于 2024-08-26 10:20:15">2024-08-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/26/MySQL%E6%B7%B1%E5%88%86%E9%A1%B5%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="MySQL深分页场景下的性能优化"><img src="https://img.hongyoubizhi.com/picture/pages/regular/2022/05/08/20/45/98189987_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="MySQL深分页场景下的性能优化"/></a><div class="content"><a class="title" href="/2024/08/26/MySQL%E6%B7%B1%E5%88%86%E9%A1%B5%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" title="MySQL深分页场景下的性能优化">MySQL深分页场景下的性能优化</a><time datetime="2024-08-26T02:01:33.000Z" title="发表于 2024-08-26 10:01:33">2024-08-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/20/Tcp%E5%8D%8F%E8%AE%AE/" title="Tcp协议"><img src="https://img.hongyoubizhi.com/picture/pages/regular/2023/04/30/15/111363525_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Tcp协议"/></a><div class="content"><a class="title" href="/2024/08/20/Tcp%E5%8D%8F%E8%AE%AE/" title="Tcp协议">Tcp协议</a><time datetime="2024-08-20T14:44:13.000Z" title="发表于 2024-08-20 22:44:13">2024-08-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/20/http%E5%8D%8F%E8%AE%AE/" title="http协议"><img src="https://img.hongyoubizhi.com/picture/pages/regular/2021/07/24/09/57/77888016_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="http协议"/></a><div class="content"><a class="title" href="/2024/08/20/http%E5%8D%8F%E8%AE%AE/" title="http协议">http协议</a><time datetime="2024-08-20T14:36:37.000Z" title="发表于 2024-08-20 22:36:37">2024-08-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/08/19/%E9%80%9A%E7%94%A8%E7%9A%84/%E4%B8%80%E4%BA%9B%E5%AE%B9%E6%98%93%E6%90%9E%E6%B7%B7%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9/" title="一些容易搞混的知识点"><img src="https://img.hongyoubizhi.com/picture/pages/regular/2021/01/26/15/07/86380024_p0_master1200.jpg?x-oss-process=image/resize,w_450/format,jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="一些容易搞混的知识点"/></a><div class="content"><a class="title" href="/2024/08/19/%E9%80%9A%E7%94%A8%E7%9A%84/%E4%B8%80%E4%BA%9B%E5%AE%B9%E6%98%93%E6%90%9E%E6%B7%B7%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9/" title="一些容易搞混的知识点">一些容易搞混的知识点</a><time datetime="2024-08-19T06:40:21.000Z" title="发表于 2024-08-19 14:40:21">2024-08-19</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://img.hongyoubizhi.com/picture/pages/regular/2021/07/24/09/57/77888016_p0_master1200.jpg?x-oss-process=image/resize,m_fill,w_1000')"><div id="footer-wrap"><div class="copyright">&copy;2024/7/26 - 2024 By Yuechu</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/click-heart.min.js" async="async" mobile="false"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js?v=4.13.0"></script></div></div></body></html>
